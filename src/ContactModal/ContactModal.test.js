@@ -22,7 +22,7 @@ describe('ContactModal', () => {
     expect(submitButton).toBeDisabled();
   });
 
-  test('Disables submit button until form is valid', () => {
+  test('Able submit button until form is valid', () => {
     render(<ContactModal />);
     const nameInput = screen.queryByPlaceholderText('Name');
     const phoneInput = screen.queryByPlaceholderText('Phone Number');
@@ -34,5 +34,19 @@ describe('ContactModal', () => {
     fireEvent.change(emailInput, { target: { value: 'port@exe.com' } });
 
     expect(submitButton).not.toBeDisabled();
+  });
+
+  test('Disable submit button until form is valid', () => {
+    render(<ContactModal />);
+    const nameInput = screen.queryByPlaceholderText('Name');
+    const phoneInput = screen.queryByPlaceholderText('Phone Number');
+    const emailInput = screen.queryByPlaceholderText('Email Address');
+    const submitButton = screen.getByText('Submit');
+
+    fireEvent.change(nameInput, { target: { value: 'Port Exe' } });
+    fireEvent.change(phoneInput, { target: { value: '99679-6217' } });
+    fireEvent.change(emailInput, { target: { value: 'port@exe' } });
+
+    expect(submitButton).toBeDisabled();
   });
 });
